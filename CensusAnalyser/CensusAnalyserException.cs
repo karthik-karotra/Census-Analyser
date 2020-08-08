@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CensusAnalyser
 {
@@ -8,7 +6,7 @@ namespace CensusAnalyser
     {
         public enum ExceptionType
         {
-            FILE_NOT_FOUND
+            FILE_NOT_FOUND,INCORRECT_FILE_TYPE
         }
         public ExceptionType type;
 
