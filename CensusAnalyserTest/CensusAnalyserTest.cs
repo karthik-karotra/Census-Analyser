@@ -19,14 +19,14 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void Test1()
+        public void GivenIndianCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
             string[] actual = censusAnalyser.LoadIndianCensusCSVData(CSVFilePath);
             Assert.AreEqual(29, actual.Length);
         }
 
         [Test]
-        public void Test2()
+        public void GivenIndianCensusCSVFile_WhenFileNotFound_ShouldThrowException()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void Test3()
+        public void GivenIndianCensusCSVFile_WhenIncorrectFileType_ShouldThrowException()
         {
             try
             {
@@ -52,7 +52,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void Test4()
+        public void GivenIndianCensusCSVFile_WhenIncorrectDeliminatorInFile_ShouldThrowException()
         {
             try
             {
@@ -65,7 +65,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void Test5()
+        public void GivenIndianCensusCSVFile_WhenIncorrectHeadersInFile_ShouldThrowException()
         {
             try
             {
