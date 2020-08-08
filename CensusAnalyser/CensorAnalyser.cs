@@ -30,5 +30,11 @@ namespace CensusAnalyser
             }
             return censusData.Skip(1).ToArray();
         }
+
+        public string[] LoadStateCensusCSVData(string csvFilePath)
+        {
+            censusData = File.ReadAllLines(csvFilePath);
+            return censusData.Skip(1).ToArray();
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace CensusAnalyserTest
         static string InvalidCSVTypeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyser\CensorAnalyser.cs";
         static string InvalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectDeliminatorCensusFile.csv";
         static string InvalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectHeaderCensusFile.csv";
+        static string CSVStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCode.csv";
         CensorAnalyser censusAnalyser;
 
         [SetUp]
@@ -77,5 +78,11 @@ namespace CensusAnalyserTest
             }
         }
 
+        [Test]
+        public void GivenStateCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
+        {
+            string[] actual = censusAnalyser.LoadStateCensusCSVData(CSVStateCodeFilePath);
+            Assert.AreEqual(37, actual.Length);
+        }
     }
 }
