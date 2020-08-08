@@ -11,6 +11,7 @@ namespace CensusAnalyserTest
         static string InvalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectDeliminatorCensusFile.csv";
         static string InvalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectHeaderCensusFile.csv";
         static string CSVStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCode.csv";
+        static string InvalidDeliminatorStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorIndiaStateCode.csv";
         CensorAnalyser censusAnalyser;
 
         [SetUp]
@@ -83,6 +84,58 @@ namespace CensusAnalyserTest
         {
             string[] actual = censusAnalyser.LoadStateCensusCSVData(CSVStateCodeFilePath);
             Assert.AreEqual(37, actual.Length);
+        }
+
+        [Test]
+        public void GivenStateCodesCSVFile_WhenFileNotFound_ShouldThrowException()
+        {
+            try
+            {
+                censusAnalyser.LoadStateCensusCSVData(InvalidFilePath);
+            }
+            catch (CensusAnalyserException ex)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, ex.type);
+            }
+        }
+
+        [Test]
+        public void GivenStateCodesCSVFile_WhenIncorrectFileType_ShouldThrowException()
+        {
+            try
+            {
+                censusAnalyser.LoadStateCensusCSVData(InvalidCSVTypeFilePath);
+            }
+            catch (CensusAnalyserException ex)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE, ex.type);
+            }
+        }
+
+        [Test]
+        public void GivenStateCodesCSVFile_WhenIncorrectDeliminatorInFile_ShouldThrowException()
+        {
+            try
+            {
+                censusAnalyser.LoadStateCensusCSVData(InvalidDeliminatorStateCodeFilePath);
+            }
+            catch (CensusAnalyserException ex)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, ex.type);
+            }
+        }
+
+        [Test]
+        public void GivenStateCodesCSVFile_WhenIncorrectHeadersInFile_ShouldThrowException()
+        {
+            try
+            {
+                censusAnalyser.LoadStateCensusCSVData(InvalidHeaderFilePath);
+            }
+            catch (CensusAnalyserException ex)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADERS, ex.type);
+            }
         }
     }
 }
