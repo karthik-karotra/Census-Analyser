@@ -6,7 +6,7 @@ namespace CensusAnalyser
     {
         public enum ExceptionType
         {
-            FILE_NOT_FOUND,INCORRECT_FILE_TYPE, INVALID_DELIMITER
+            FILE_NOT_FOUND,INCORRECT_FILE_TYPE, INVALID_DELIMITER,INVALID_HEADERS
         }
         public ExceptionType type;
 

@@ -9,6 +9,7 @@ namespace CensusAnalyserTest
         static string InvalidFilePath = @"D:\C-Sharp\IndiaStateCensusData.csv";
         static string InvalidCSVTypeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyser\CensorAnalyser.cs";
         static string InvalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectDeliminatorCensusFile.csv";
+        static string InvalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectHeaderCensusFile.csv";
         CensorAnalyser censusAnalyser;
 
         [SetUp]
@@ -60,6 +61,19 @@ namespace CensusAnalyserTest
             catch (CensusAnalyserException ex)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, ex.type);
+            }
+        }
+
+        [Test]
+        public void Test5()
+        {
+            try
+            {
+                censusAnalyser.LoadIndianCensusCSVData(InvalidHeaderFilePath);
+            }
+            catch (CensusAnalyserException ex)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADERS, ex.type);
             }
         }
 
