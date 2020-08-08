@@ -12,6 +12,8 @@ namespace CensusAnalyserTest
         static string InvalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectHeaderCensusFile.csv";
         static string CSVStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCode.csv";
         static string InvalidDeliminatorStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorIndiaStateCode.csv";
+        static string StateCensusFileHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
+        static string StateCodeFileHeaders = "SrNo,State Name,TIN,StateCode";
         CensorAnalyser censusAnalyser;
 
         [SetUp]
@@ -23,7 +25,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
-            string[] actual = censusAnalyser.LoadIndianCensusCSVData(CSVFilePath);
+            string[] actual = censusAnalyser.LoadIndianCensusCSVData(CSVFilePath, StateCensusFileHeaders);
             Assert.AreEqual(29, actual.Length);
         }
 
@@ -32,7 +34,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadIndianCensusCSVData(InvalidFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidFilePath, StateCensusFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
@@ -45,7 +47,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadIndianCensusCSVData(InvalidCSVTypeFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidCSVTypeFilePath, StateCensusFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
@@ -58,7 +60,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadIndianCensusCSVData(InvalidDeliminatorFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidDeliminatorFilePath, StateCensusFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
@@ -71,7 +73,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadIndianCensusCSVData(InvalidHeaderFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidHeaderFilePath, StateCensusFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
@@ -82,7 +84,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenStateCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
-            string[] actual = censusAnalyser.LoadStateCensusCSVData(CSVStateCodeFilePath);
+            string[] actual = censusAnalyser.LoadIndianCensusCSVData(CSVStateCodeFilePath, StateCodeFileHeaders);
             Assert.AreEqual(37, actual.Length);
         }
 
@@ -91,7 +93,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadStateCensusCSVData(InvalidFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidFilePath, StateCodeFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
@@ -104,7 +106,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadStateCensusCSVData(InvalidCSVTypeFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidCSVTypeFilePath, StateCodeFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
@@ -117,7 +119,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadStateCensusCSVData(InvalidDeliminatorStateCodeFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidDeliminatorStateCodeFilePath, StateCodeFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
@@ -130,7 +132,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                censusAnalyser.LoadStateCensusCSVData(InvalidHeaderFilePath);
+                censusAnalyser.LoadIndianCensusCSVData(InvalidHeaderFilePath, StateCodeFileHeaders);
             }
             catch (CensusAnalyserException ex)
             {
