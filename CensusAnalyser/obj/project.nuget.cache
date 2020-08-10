@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "mXA9jGqBMRi80v+8hhf3y1kjFdIgOZba7zyZV1z41+8AqAmqPM5rSG7iJltn2Uxa9w/RZX974F1yUbDFqlEl2w==",
+  "dgSpecHash": "GNoN2ruCd2DcuqtQwlAAXkf9W3/lmfZ+UWUXnsWY2nAxHIEvjHo4sHlIK6gv7qm88bWeJr+Gnm3OG0QsFsAwHw==",
   "success": true,
   "projectFilePath": "D:\\C-Sharp\\CensusAnalyser\\CensusAnalyser\\CensusAnalyser.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
