@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace CensusAnalyser
@@ -7,7 +8,7 @@ namespace CensusAnalyser
     {
 
         public delegate object CSVFileData(string csvFilePath, string fileHeaders);
-        string[] censusData;
+        List<string> censusData = new List<string>();
 
         public object LoadCSVFileData(string csvFilePath, string fileHeaders)
         {
@@ -19,7 +20,7 @@ namespace CensusAnalyser
             {
                 throw new CensusAnalyserException("Incorrect Type", CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE);
             }
-            censusData = File.ReadAllLines(csvFilePath);
+            censusData = File.ReadAllLines(csvFilePath).ToList();
             if (censusData[0] != fileHeaders)
             {
                 throw new CensusAnalyserException("Invalid Headers", CensusAnalyserException.ExceptionType.INVALID_HEADERS);
@@ -31,7 +32,7 @@ namespace CensusAnalyser
                     throw new CensusAnalyserException("Invalid Delimiters In File", CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
                 }
             }
-            return censusData.Skip(1).ToArray();
+            return censusData.Skip(1).ToList();
         }
     }
 }
