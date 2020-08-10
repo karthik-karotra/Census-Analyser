@@ -15,101 +15,102 @@ namespace CensusAnalyserTest
         static string InvalidDeliminatorStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorIndiaStateCode.csv";
         static string StateCensusFileHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
         static string StateCodeFileHeaders = "SrNo,State Name,TIN,StateCode";
-        CensorAnalyser censusAnalyser;
         CSVFileData csvFileData;
+        CSVFactory csvFactory;
 
         [SetUp]
         public void Setup()
         {
+            csvFactory = new CSVFactory();
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
-            censusAnalyser = new CensorAnalyser(CSVFilePath, StateCensusFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            string[] totalNumberOfRecords = (string[])csvFileData();
+            string[] totalNumberOfRecords = (string[])csvFileData(CSVFilePath, StateCensusFileHeaders);
             Assert.AreEqual(29, totalNumberOfRecords.Length);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenFileNotFound_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidFilePath, StateCensusFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidFilePath, StateCensusFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, exception.type);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenIncorrectFileType_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidCSVTypeFilePath, StateCensusFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidCSVTypeFilePath, StateCensusFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE, exception.type);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenIncorrectDeliminatorInFile_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidDeliminatorFilePath, StateCensusFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidDeliminatorFilePath, StateCensusFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, exception.type);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenIncorrectHeadersInFile_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidHeaderFilePath, StateCensusFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidHeaderFilePath, StateCensusFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADERS, exception.type);
         }
 
         [Test]
         public void GivenStateCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
-            censusAnalyser = new CensorAnalyser(CSVStateCodeFilePath, StateCodeFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            string[] totalNumberOfRecords = (string[])csvFileData();
+            string[] totalNumberOfRecords = (string[])csvFileData(CSVStateCodeFilePath, StateCodeFileHeaders);
             Assert.AreEqual(37, totalNumberOfRecords.Length);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenFileNotFound_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidFilePath, StateCodeFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidFilePath, StateCodeFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, exception.type);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenIncorrectFileType_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidCSVTypeFilePath, StateCodeFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidCSVTypeFilePath, StateCodeFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE, exception.type);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenIncorrectDeliminatorInFile_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidDeliminatorStateCodeFilePath, StateCodeFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidDeliminatorStateCodeFilePath, StateCodeFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, exception.type);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenIncorrectHeadersInFile_ShouldThrowException()
         {
-            censusAnalyser = new CensorAnalyser(InvalidHeaderFilePath, StateCodeFileHeaders);
+            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData());
+            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(InvalidHeaderFilePath, StateCodeFileHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADERS, exception.type);
         }
     }

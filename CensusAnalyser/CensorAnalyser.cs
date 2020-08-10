@@ -3,21 +3,13 @@ using System.Linq;
 
 namespace CensusAnalyser
 {
-    public class CensorAnalyser
+    public class CensorAnalyser : ICSVBuilder
     {
 
-        public delegate object CSVFileData();
-        string csvFilePath;
-        string fileHeaders;
+        public delegate object CSVFileData(string csvFilePath, string fileHeaders);
         string[] censusData;
 
-        public CensorAnalyser(string csvFilePath, string fileHeaders)
-        {
-            this.csvFilePath = csvFilePath;
-            this.fileHeaders = fileHeaders;
-        }
-
-        public object LoadCSVFileData()
+        public object LoadCSVFileData(string csvFilePath, string fileHeaders)
         {
             if (!File.Exists(csvFilePath))
             {
