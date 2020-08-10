@@ -36,14 +36,14 @@ namespace CensusAnalyser
             return censusData.Skip(1).ToList();
         }
 
-        public object getSortedCSVDataInJsonFormat(string csvFilePath)
+        public object getSortedCSVDataInJsonFormat(string csvFilePath,int columnIndex)
         {
             string[] allRecords = File.ReadAllLines(csvFilePath);
             var recordsWithoutHeader = allRecords.Skip(1);
             var sorted =
                 from singleRecord in recordsWithoutHeader
                 let column = singleRecord.Split(',')
-                orderby column[0]
+                orderby column[columnIndex]
                 select singleRecord;
             List<string> sortedData = sorted.ToList<string>();
             return JsonConvert.SerializeObject(sortedData);
