@@ -11,7 +11,7 @@ namespace CensusAnalyser
         public delegate object CSVFileData(string csvFilePath, string fileHeaders);
         string[] censusData;
         int keyCounter = 0;
-        Dictionary<int, string> censusDataMap = new Dictionary<int, string>();
+        private readonly Dictionary<int, string> CensusDataMap = new Dictionary<int, string>();
 
         public object LoadCSVFileData(string csvFilePath, string fileHeaders)
         {
@@ -31,13 +31,13 @@ namespace CensusAnalyser
             foreach (string data in censusData)
             {
                 keyCounter++;
-                censusDataMap.Add(keyCounter, data);
+                CensusDataMap.Add(keyCounter, data);
                 if (!data.Contains(","))
                 {
                     throw new CensusAnalyserException("Invalid Delimiters In File", CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
                 }
             }
-            return censusDataMap.Skip(1).ToDictionary(p => p.Key, p => p.Value);
+            return CensusDataMap.Skip(1).ToDictionary(p => p.Key, p => p.Value);
         }
 
         public object GetSortedCSVDataInJsonFormat(string csvFilePath, string fileHeaders,int columnIndex)

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CensusAnalyser
+﻿namespace CensusAnalyser
 {
     public class CSVFactory
     {
 
-        public ICSVBuilder getCensusAnalyser()
+        public ICSVBuilder GetCensusAnalyser()
         {
             return new CensorAnalyser();
         }
