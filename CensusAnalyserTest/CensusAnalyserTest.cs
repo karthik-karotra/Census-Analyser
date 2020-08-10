@@ -119,7 +119,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void GivenIndianCensusCSVFile_WhenProper_ShouldReturnSortedDataAccordungToStatesInJSONFormat()
+        public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnFirstRecordOfAndhraPradeshState()
         {
             CensorAnalyser censusAnalyser = new CensorAnalyser();
             string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVFilePath,0).ToString();
@@ -128,12 +128,30 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void GivenIndianStateCSVFile_WhenProper_ShouldReturnSortedDataAccordingToStateCodeInJSONFormats()
+        public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnLastRecordOfUttarakhandState()
+        {
+            CensorAnalyser censusAnalyser = new CensorAnalyser();
+            string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVFilePath, 0).ToString();
+            string[] sortedIndianCensusData = JsonConvert.DeserializeObject<string[]>(sortedData);
+            Assert.AreEqual("West Bengal,91347736,88752,1029", sortedIndianCensusData[sortedIndianCensusData.Length-1]);
+        }
+
+        [Test]
+        public void GivenIndianStateCodeCSVFileForSorting_WhenFilePresent_ShouldReturnFirstRecordOfAndhraPradeshState()
         {
             CensorAnalyser censusAnalyser = new CensorAnalyser();
             string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVStateCodeFilePath, 3).ToString();
             string[] sortedStateCensusData = JsonConvert.DeserializeObject<string[]>(sortedData);
             Assert.AreEqual("3,Andhra Pradesh New,37,AD", sortedStateCensusData[0]);
+        }
+
+        [Test]
+        public void GivenIndianStateCodeCSVFileForSorting_WhenFilePresent_ShouldReturnLastRecordOfWestBengalState()
+        {
+            CensorAnalyser censusAnalyser = new CensorAnalyser();
+            string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVStateCodeFilePath, 3).ToString();
+            string[] sortedStateCensusData = JsonConvert.DeserializeObject<string[]>(sortedData);
+            Assert.AreEqual("37,West Bengal,19,WB", sortedStateCensusData[sortedStateCensusData.Length-1]);
         }
     }
 }
