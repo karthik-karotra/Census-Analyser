@@ -11,10 +11,11 @@ namespace CensusAnalyser
         public delegate object CSVFileData(string csvFilePath, string fileHeaders);
         string[] censusData;
         int keyCounter = 0;
-        private readonly Dictionary<int, string> CensusDataMap = new Dictionary<int, string>();
+        private Dictionary<int, string> CensusDataMap;
 
         public object LoadCSVFileData(string csvFilePath, string fileHeaders)
         {
+            CensusDataMap = new Dictionary<int, string>();
             if (!File.Exists(csvFilePath))
             {
                 throw new CensusAnalyserException("File Not Found", CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);

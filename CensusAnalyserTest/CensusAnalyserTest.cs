@@ -20,12 +20,14 @@ namespace CensusAnalyserTest
         CSVFileData csvFileData;
         CSVFactory csvFactory;
         Dictionary<int, string> totalNumberOfRecords;
+        Dictionary<int, string> totalRecords;
 
         [SetUp]
         public void Setup()
         {
             csvFactory = new CSVFactory();
             totalNumberOfRecords = new Dictionary<int, string>();
+            totalRecords = new Dictionary<int, string>();
         }
 
         [Test]
@@ -79,7 +81,9 @@ namespace CensusAnalyserTest
             CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
             totalNumberOfRecords = (Dictionary<int, string>)csvFileData(csvStateCodeFilePath, stateCodeFileHeaders);
+            totalRecords = (Dictionary<int, string>)csvFileData(csvFilePath, stateCensusFileHeaders);
             Assert.AreEqual(37, totalNumberOfRecords.Count);
+            Assert.AreEqual(29, totalRecords.Count);
         }
 
         [Test]
