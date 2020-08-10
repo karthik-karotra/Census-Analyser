@@ -8,24 +8,24 @@ namespace CensusAnalyserTest
 {
     public class Tests
     {
-        static string CSVFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCensusData.csv";
-        static string InvalidFilePath = @"D:\C-Sharp\IndiaStateCensusData.csv";
-        static string InvalidCSVTypeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyser\CensorAnalyser.cs";
-        static string InvalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectDeliminatorCensusFile.csv";
-        static string InvalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectHeaderCensusFile.csv";
-        static string CSVStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCode.csv";
-        static string InvalidDeliminatorStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorIndiaStateCode.csv";
-        static string StateCensusFileHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
-        static string StateCodeFileHeaders = "SrNo,State Name,TIN,StateCode";
+        static readonly string CSVFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCensusData.csv";
+        static readonly string InvalidFilePath = @"D:\C-Sharp\IndiaStateCensusData.csv";
+        static readonly string InvalidCSVTypeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyser\CensorAnalyser.cs";
+        static readonly string InvalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectDeliminatorCensusFile.csv";
+        static readonly string InvalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectHeaderCensusFile.csv";
+        static readonly string CSVStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCode.csv";
+        static readonly string InvalidDeliminatorStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorIndiaStateCode.csv";
+        static readonly string StateCensusFileHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
+        static readonly string StateCodeFileHeaders = "SrNo,State Name,TIN,StateCode";
         CSVFileData csvFileData;
         CSVFactory csvFactory;
-        List<string> totalNumberOfRecords;
+        Dictionary<int, string> totalNumberOfRecords;
 
         [SetUp]
         public void Setup()
         {
             csvFactory = new CSVFactory();
-            totalNumberOfRecords = new List<string>();
+            totalNumberOfRecords = new Dictionary<int, string>();
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace CensusAnalyserTest
         {
             CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            totalNumberOfRecords = (List<string>)csvFileData(CSVFilePath, StateCensusFileHeaders);
+            totalNumberOfRecords = (Dictionary<int, string>)csvFileData(CSVFilePath, StateCensusFileHeaders);
             Assert.AreEqual(29, totalNumberOfRecords.Count);
         }
 
@@ -78,7 +78,7 @@ namespace CensusAnalyserTest
         {
             CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.getCensusAnalyser();
             csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            totalNumberOfRecords = (List<string>)csvFileData(CSVStateCodeFilePath, StateCodeFileHeaders);
+            totalNumberOfRecords = (Dictionary<int, string>)csvFileData(CSVStateCodeFilePath, StateCodeFileHeaders);
             Assert.AreEqual(37, totalNumberOfRecords.Count);
         }
 
@@ -122,7 +122,7 @@ namespace CensusAnalyserTest
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnFirstRecordOfAndhraPradeshState()
         {
             CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVFilePath,0).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(CSVFilePath, StateCensusFileHeaders,0).ToString();
             string[] sortedIndianCensusData = JsonConvert.DeserializeObject<string[]>(sortedData);
             Assert.AreEqual("Andhra Pradesh,49386799,162968,303", sortedIndianCensusData[0]);
         }
@@ -131,7 +131,7 @@ namespace CensusAnalyserTest
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnLastRecordOfUttarakhandState()
         {
             CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVFilePath, 0).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(CSVFilePath, StateCensusFileHeaders, 0).ToString();
             string[] sortedIndianCensusData = JsonConvert.DeserializeObject<string[]>(sortedData);
             Assert.AreEqual("West Bengal,91347736,88752,1029", sortedIndianCensusData[sortedIndianCensusData.Length-1]);
         }
@@ -140,7 +140,7 @@ namespace CensusAnalyserTest
         public void GivenIndianStateCodeCSVFileForSorting_WhenFilePresent_ShouldReturnFirstRecordOfAndhraPradeshState()
         {
             CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVStateCodeFilePath, 3).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(CSVStateCodeFilePath, StateCodeFileHeaders, 3).ToString();
             string[] sortedStateCensusData = JsonConvert.DeserializeObject<string[]>(sortedData);
             Assert.AreEqual("3,Andhra Pradesh New,37,AD", sortedStateCensusData[0]);
         }
@@ -149,7 +149,7 @@ namespace CensusAnalyserTest
         public void GivenIndianStateCodeCSVFileForSorting_WhenFilePresent_ShouldReturnLastRecordOfWestBengalState()
         {
             CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.getSortedCSVDataInJsonFormat(CSVStateCodeFilePath, 3).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(CSVStateCodeFilePath, StateCodeFileHeaders, 3).ToString();
             string[] sortedStateCensusData = JsonConvert.DeserializeObject<string[]>(sortedData);
             Assert.AreEqual("37,West Bengal,19,WB", sortedStateCensusData[sortedStateCensusData.Length-1]);
         }

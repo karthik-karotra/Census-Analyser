@@ -9,7 +9,9 @@ namespace CensusAnalyser
     {
 
         public delegate object CSVFileData(string csvFilePath, string fileHeaders);
-        List<string> censusData = new List<string>();
+        string[] censusData;
+        int keyCounter = 0;
+        Dictionary<int, string> censusDataMap = new Dictionary<int, string>();
 
         public object LoadCSVFileData(string csvFilePath, string fileHeaders)
         {
@@ -21,31 +23,33 @@ namespace CensusAnalyser
             {
                 throw new CensusAnalyserException("Incorrect Type", CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE);
             }
-            censusData = File.ReadAllLines(csvFilePath).ToList();
+            censusData = File.ReadAllLines(csvFilePath);
             if (censusData[0] != fileHeaders)
             {
                 throw new CensusAnalyserException("Invalid Headers", CensusAnalyserException.ExceptionType.INVALID_HEADERS);
             }
             foreach (string data in censusData)
             {
+                keyCounter++;
+                censusDataMap.Add(keyCounter, data);
                 if (!data.Contains(","))
                 {
                     throw new CensusAnalyserException("Invalid Delimiters In File", CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
                 }
             }
-            return censusData.Skip(1).ToList();
+            return censusDataMap.Skip(1).ToDictionary(p => p.Key, p => p.Value);
         }
 
-        public object getSortedCSVDataInJsonFormat(string csvFilePath,int columnIndex)
+        public object GetSortedCSVDataInJsonFormat(string csvFilePath, string fileHeaders,int columnIndex)
         {
-            string[] allRecords = File.ReadAllLines(csvFilePath);
-            var recordsWithoutHeader = allRecords.Skip(1);
+            Dictionary<int, string> censusData = (Dictionary<int, string>)LoadCSVFileData(csvFilePath, fileHeaders);
+            string[] allRecords = censusData.Values.ToArray();
             var sorted =
-                from singleRecord in recordsWithoutHeader
+                from singleRecord in allRecords
                 let column = singleRecord.Split(',')
                 orderby column[columnIndex]
                 select singleRecord;
-            List<string> sortedData = sorted.ToList<string>();
+            List<string> sortedData = sorted.ToList();
             return JsonConvert.SerializeObject(sortedData);
         }
     }
