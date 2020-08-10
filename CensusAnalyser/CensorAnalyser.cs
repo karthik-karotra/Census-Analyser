@@ -5,8 +5,19 @@ namespace CensusAnalyser
 {
     public class CensorAnalyser
     {
+
+        public delegate object CSVFileData();
+        string csvFilePath;
+        string fileHeaders;
         string[] censusData;
-        public string[] LoadIndianCensusCSVData(string csvFilePath,string fileHeaders)
+
+        public CensorAnalyser(string csvFilePath, string fileHeaders)
+        {
+            this.csvFilePath = csvFilePath;
+            this.fileHeaders = fileHeaders;
+        }
+
+        public object LoadCSVFileData()
         {
             if (!File.Exists(csvFilePath))
             {
