@@ -16,6 +16,7 @@ namespace CensusAnalyser.SortAttributes
             {
                 case SortBy.STATE_ASCENDING: return list.OrderBy(c => c.state).ToList();
                 case SortBy.STATE_CODE_ASCENDING: return list.OrderBy(c => c.stateCode).ToList();
+                case SortBy.POPULATION_DESCENDING: return list.OrderByDescending(c => c.population).ToList();
                 default: return list;
             }
         }
