@@ -1,4 +1,6 @@
-﻿namespace CensusAnalyser
+﻿using System;
+
+namespace CensusAnalyser
 {
     public class CSVFactory
     {
