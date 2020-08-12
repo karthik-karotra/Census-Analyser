@@ -174,5 +174,23 @@ namespace CensusAnalyserTest
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Sikkim", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
         }
+
+        [Test]
+        public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsMostDenselyPopulatedState()
+        {
+            CensorAnalyser censusAnalyser = new CensorAnalyser();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING).ToString();
+            IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
+            Assert.AreEqual("Bihar", sortedIndianCensusData[0].state);
+        }
+
+        [Test]
+        public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsLeastDenseleyPopulatedState()
+        {
+            CensorAnalyser censusAnalyser = new CensorAnalyser();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING).ToString();
+            IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
+            Assert.AreEqual("Arunachal Pradesh", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
+        }
     }
 }
