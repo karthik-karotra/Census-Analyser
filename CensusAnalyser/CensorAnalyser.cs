@@ -15,6 +15,7 @@ namespace CensusAnalyser
         public delegate object CSVFileData(string csvFilePath, string fileHeaders);
         string[] censusData;
         private Dictionary<string, IndianCensusDAO> CensusDataMap;
+        private Dictionary<string, USCensusDAO> USCensusDataMap;
 
         public object LoadCSVFileData(string csvFilePath, string fileHeaders)
         {
@@ -53,6 +54,34 @@ namespace CensusAnalyser
             List<IndianCensusDAO> censusDataList = censusData.Values.ToList();
             List<IndianCensusDAO> sortedList = SortType.SortIndianCensusData(censusDataList, sortType);
             return JsonConvert.SerializeObject(sortedList);
+        }
+
+        public object LoadUSCSVFileData(string csvFilePath, string fileHeaders)
+        {
+            USCensusDataMap = new Dictionary<string, USCensusDAO>();
+            if (!File.Exists(csvFilePath))
+            {
+                throw new CensusAnalyserException("File Not Found", CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
+            }
+            if (Path.GetExtension(csvFilePath) != ".csv")
+            {
+                throw new CensusAnalyserException("Incorrect Type", CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE);
+            }
+            censusData = File.ReadAllLines(csvFilePath);
+            if (censusData[0] != fileHeaders)
+            {
+                throw new CensusAnalyserException("Invalid Headers", CensusAnalyserException.ExceptionType.INVALID_HEADERS);
+            }
+            foreach (string data in censusData.Skip(1))
+            {
+                if (!data.Contains(","))
+                {
+                    throw new CensusAnalyserException("Invalid Delimiters In File", CensusAnalyserException.ExceptionType.INVALID_DELIMITER);
+                }
+                string[] column = data.Split(",");
+                USCensusDataMap.Add(column[1], new USCensusDAO(new USCensus(column[0], column[1], column[2], column[3], column[4], column[5], column[6], column[7], column[8])));
+            }
+            return USCensusDataMap;
         }
     }
 }
