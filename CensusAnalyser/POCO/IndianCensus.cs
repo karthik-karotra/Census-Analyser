@@ -16,6 +16,7 @@ namespace CensusAnalyser.POCO
 
         [Name("DensityPerSqKm")]
         public long populationDensity { get; set; }
+
         public IndianCensus(string state, string population, string totalArea, string populationDensity)
         {
             this.state = state;

@@ -1,14 +1,11 @@
 ﻿using CensusAnalyser.POCO;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CensusAnalyser.DAO
 {
     public class IndianCensusDAO
     {
         public long areaInSqkm;
-        public String state;
+        public string state;
         public long population;
         public long densityPerSqKm;
         public int srNo;

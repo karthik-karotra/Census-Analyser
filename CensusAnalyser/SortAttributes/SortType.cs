@@ -1,5 +1,4 @@
-﻿using CensusAnalyser.DAO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace CensusAnalyser.SortAttributes
@@ -8,9 +7,14 @@ namespace CensusAnalyser.SortAttributes
     {
         public enum SortBy
         {
-            STATE_ASCENDING, STATE_CODE_ASCENDING, POPULATION_DESCENDING, POPULATION_DENSITY_DESCENDING, AREA_PER_SQ_KM_DESCENDING
+            STATE_ASCENDING,
+            STATE_CODE_ASCENDING,
+            POPULATION_DESCENDING,
+            POPULATION_DENSITY_DESCENDING,
+            AREA_PER_SQ_KM_DESCENDING
         }
-        public static List<IndianCensusDAO> SortIndianCensusData(List<IndianCensusDAO> list, SortBy sortType)
+
+        public static List<dynamic> SortIndianCensusData(List<dynamic> list, SortBy sortType)
         {
             switch (sortType)
             {

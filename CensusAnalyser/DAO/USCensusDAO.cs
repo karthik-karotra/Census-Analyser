@@ -1,14 +1,11 @@
 ﻿using CensusAnalyser.POCO;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CensusAnalyser.DAO
 {
     public class USCensusDAO
     {
         public string stateCode;
-        public String state;
+        public string state;
         public long population;
         public long housingUnits;
         public double totalArea;
@@ -29,5 +26,7 @@ namespace CensusAnalyser.DAO
             this.populationDensity = usCensus.populationDensity;
             this.housingDensity = usCensus.housingDensity;
         }
+
+        public USCensusDAO() { }
     }
 }

@@ -1,5 +1,4 @@
 using CensusAnalyser;
-using CensusAnalyser.DAO;
 using CensusAnalyser.POCO;
 using CensusAnalyser.SortAttributes;
 using Newtonsoft.Json;
@@ -11,7 +10,7 @@ namespace CensusAnalyserTest
 {
     public class Tests
     {
-        static readonly string csvIndainCensusFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCensusData.csv";
+        static readonly string indianCensusCSVFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCensusData.csv";
         static readonly string invalidFilePath = @"D:\C-Sharp\IndiaStateCensusData.csv";
         static readonly string invalidCSVTypeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyser\CensorAnalyser.cs";
         static readonly string invalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectDeliminatorCensusFile.csv";
@@ -24,115 +23,93 @@ namespace CensusAnalyserTest
         static readonly string invalidDeliminatorUSCensusFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorUSCensusData.csv";
         static readonly string usCensusFileHeaders = "State Id,State,Population,Housing units,Total area,Water area,Land area,Population Density,Housing Density";
 
-        CSVFileData csvFileData;
-        CSVFactory csvFactory;
-        Dictionary<string, IndianCensusDAO> totalNumberOfIndianCensusRecords;
-        Dictionary<string, USCensusDAO> totalNumberOfUSCensusRecords;
-
+        Dictionary<string, dynamic> totalRecords;
+        CensorAnalyser censusAnalyser;
 
         [SetUp]
         public void Setup()
         {
-            csvFactory = new CSVFactory();
-            totalNumberOfIndianCensusRecords = new Dictionary<string,IndianCensusDAO>();
-            totalNumberOfUSCensusRecords = new Dictionary<string, USCensusDAO>();
+            censusAnalyser = new CensorAnalyser();
+            totalRecords = new Dictionary<string, dynamic>();
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            totalNumberOfIndianCensusRecords = (Dictionary<string,IndianCensusDAO>)csvFileData(csvIndainCensusFilePath, stateCensusFileHeaders);
-            Assert.AreEqual(29, totalNumberOfIndianCensusRecords.Count);
+            totalRecords = censusAnalyser.LoadCSVFileData(indianCensusCSVFilePath, stateCensusFileHeaders, Country.INDIA);
+            Assert.AreEqual(29, totalRecords.Count);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenFileNotFound_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidFilePath, stateCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidFilePath, stateCensusFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, exception.type);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenIncorrectFileType_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidCSVTypeFilePath, stateCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidCSVTypeFilePath, stateCensusFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE, exception.type);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenIncorrectDeliminatorInFile_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidDeliminatorFilePath, stateCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidDeliminatorFilePath, stateCensusFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, exception.type);
         }
 
         [Test]
         public void GivenIndianCensusCSVFile_WhenIncorrectHeadersInFile_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidHeaderFilePath, stateCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidHeaderFilePath, stateCensusFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADERS, exception.type);
         }
+
+
 
         [Test]
         public void GivenStateCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            totalNumberOfIndianCensusRecords = (Dictionary<string,IndianCensusDAO>)csvFileData(csvStateCodeFilePath, stateCodeFileHeaders);
-            Assert.AreEqual(37, totalNumberOfIndianCensusRecords.Count);
+            totalRecords = censusAnalyser.LoadCSVFileData(csvStateCodeFilePath, stateCodeFileHeaders, Country.INDIA);
+            Assert.AreEqual(37, totalRecords.Count);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenFileNotFound_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidFilePath, stateCodeFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidFilePath, stateCodeFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, exception.type);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenIncorrectFileType_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidCSVTypeFilePath, stateCodeFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidCSVTypeFilePath, stateCodeFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE, exception.type);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenIncorrectDeliminatorInFile_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidDeliminatorStateCodeFilePath, stateCodeFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidDeliminatorStateCodeFilePath, stateCodeFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, exception.type);
         }
 
         [Test]
         public void GivenStateCodesCSVFile_WhenIncorrectHeadersInFile_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidHeaderFilePath, stateCodeFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidHeaderFilePath, stateCodeFileHeaders, Country.INDIA));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADERS, exception.type);
         }
+
 
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnFirstRecordOfAndhraPradeshState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.STATE_ASCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.STATE_ASCENDING, Country.INDIA).ToString();
             IndianCensus[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianCensus[]>(sortedData);
             Assert.AreEqual("Andhra Pradesh", sortedIndianCensusData[0].state);
         }
@@ -140,8 +117,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnLastRecordOfUttarakhandState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.STATE_ASCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.STATE_ASCENDING, Country.INDIA).ToString();
             IndianCensus[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianCensus[]>(sortedData);
             Assert.AreEqual("West Bengal", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
         }
@@ -149,8 +125,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianStateCodeCSVFileForSorting_WhenFilePresent_ShouldReturnFirstRecordOfAndhraPradeshState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvStateCodeFilePath, stateCodeFileHeaders, SortType.SortBy.STATE_CODE_ASCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvStateCodeFilePath, stateCodeFileHeaders, SortType.SortBy.STATE_CODE_ASCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedStateCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("AD", sortedStateCensusData[0].stateCode);
         }
@@ -158,8 +133,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianStateCodeCSVFileForSorting_WhenFilePresent_ShouldReturnLastRecordOfWestBengalState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvStateCodeFilePath, stateCodeFileHeaders, SortType.SortBy.STATE_CODE_ASCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvStateCodeFilePath, stateCodeFileHeaders, SortType.SortBy.STATE_CODE_ASCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedStateCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("WB", sortedStateCensusData[sortedStateCensusData.Length - 1].stateCode);
         }
@@ -167,8 +141,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsMostPopulousState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DESCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DESCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Uttar Pradesh", sortedIndianCensusData[0].state);
         }
@@ -176,8 +149,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsLeastPopulousState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DESCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DESCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Sikkim", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
         }
@@ -185,8 +157,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsMostDenselyPopulatedState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Bihar", sortedIndianCensusData[0].state);
         }
@@ -194,8 +165,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsLeastDenseleyPopulatedState()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Arunachal Pradesh", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
         }
@@ -203,8 +173,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsLargestStateByArea()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.AREA_PER_SQ_KM_DESCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.AREA_PER_SQ_KM_DESCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Rajasthan", sortedIndianCensusData[0].state);
         }
@@ -212,8 +181,7 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsSmallestStateByArea()
         {
-            CensorAnalyser censusAnalyser = new CensorAnalyser();
-            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvIndainCensusFilePath, stateCensusFileHeaders, SortType.SortBy.AREA_PER_SQ_KM_DESCENDING).ToString();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.AREA_PER_SQ_KM_DESCENDING, Country.INDIA).ToString();
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Goa", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
         }
@@ -221,45 +189,35 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenUSCensusCSVFile_WhenCorrectFile_ShouldReturnCorrectNoOfRecords()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadUSCSVFileData);
-            totalNumberOfUSCensusRecords = (Dictionary<string, USCensusDAO>)csvFileData(usCSVFilePath, usCensusFileHeaders);
-            Assert.AreEqual(51, totalNumberOfUSCensusRecords.Count);
+            totalRecords = censusAnalyser.LoadCSVFileData(usCSVFilePath, usCensusFileHeaders, Country.US);
+            Assert.AreEqual(51, totalRecords.Count);
         }
 
         [Test]
         public void GivenUSCensusCSVFile_WhenFileNotFound_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadUSCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidFilePath, usCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidFilePath, usCensusFileHeaders, Country.US));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, exception.type);
         }
 
         [Test]
         public void GivenUSCensusCSVFile_WhenIncorrectFileType_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadUSCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidCSVTypeFilePath, usCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidCSVTypeFilePath, usCensusFileHeaders, Country.US));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_TYPE, exception.type);
         }
 
         [Test]
         public void GivenUSCensusCSVFile_WhenIncorrectDeliminatorInFile_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadUSCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidDeliminatorUSCensusFilePath, usCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidDeliminatorUSCensusFilePath, usCensusFileHeaders, Country.US));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_DELIMITER, exception.type);
         }
 
         [Test]
         public void GivenUSCensusCSVFile_WhenIncorrectHeadersInFile_ShouldThrowException()
         {
-            CensorAnalyser censusAnalyser = (CensorAnalyser)csvFactory.GetCensusAnalyser();
-            csvFileData = new CSVFileData(censusAnalyser.LoadUSCSVFileData);
-            var exception = Assert.Throws<CensusAnalyserException>(() => csvFileData(invalidHeaderFilePath, usCensusFileHeaders));
+            var exception = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCSVFileData(invalidHeaderFilePath, usCensusFileHeaders, Country.US));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_HEADERS, exception.type);
         }
 

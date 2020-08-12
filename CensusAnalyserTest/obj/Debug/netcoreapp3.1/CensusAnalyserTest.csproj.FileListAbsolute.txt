@@ -1,7 +1,3 @@
-D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csprojAssemblyReference.cache
-D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.AssemblyInfoInputs.cache
-D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.AssemblyInfo.cs
-D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csproj.CoreCompileInputs.cache
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.pdb
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\nunit.engine.dll
@@ -93,6 +89,10 @@ D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\zh-Hant\Mic
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\CensusAnalyser.dll
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\CensusAnalyser.pdb
+D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csprojAssemblyReference.cache
+D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.AssemblyInfoInputs.cache
+D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.AssemblyInfo.cs
+D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csproj.CoreCompileInputs.cache
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csproj.CopyComplete
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.dll
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.pdb
