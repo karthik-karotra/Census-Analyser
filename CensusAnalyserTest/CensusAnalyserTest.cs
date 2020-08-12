@@ -192,5 +192,24 @@ namespace CensusAnalyserTest
             IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
             Assert.AreEqual("Arunachal Pradesh", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
         }
+
+        [Test]
+        public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsLargestStateByArea()
+        {
+            CensorAnalyser censusAnalyser = new CensorAnalyser();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvFilePath, stateCensusFileHeaders, SortType.SortBy.AREA_PER_SQ_KM_DESCENDING).ToString();
+            IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
+            Assert.AreEqual("Rajasthan", sortedIndianCensusData[0].state);
+        }
+
+        [Test]
+        public void GivenIndianCensusCSVFileForSorting_WhenFilePresent_ShouldReturnsSmallestStateByArea()
+        {
+            CensorAnalyser censusAnalyser = new CensorAnalyser();
+            string sortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(csvFilePath, stateCensusFileHeaders, SortType.SortBy.AREA_PER_SQ_KM_DESCENDING).ToString();
+            IndianStateCode[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianStateCode[]>(sortedData);
+            Assert.AreEqual("Goa", sortedIndianCensusData[sortedIndianCensusData.Length - 1].state);
+        }
+
     }
 }
