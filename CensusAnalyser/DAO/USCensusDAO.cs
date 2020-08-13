@@ -8,10 +8,10 @@ namespace CensusAnalyser.DAO
         public string state;
         public long population;
         public long housingUnits;
-        public double totalArea;
+        public double areaInSqkm;
         public double waterArea;
         public double landArea;
-        public double populationDensity;
+        public double densityPerSqKm;
         public double housingDensity;
 
         public USCensusDAO(USCensus usCensus)
@@ -20,10 +20,10 @@ namespace CensusAnalyser.DAO
             this.state = usCensus.state;
             this.population = usCensus.population;
             this.housingUnits = usCensus.housingUnits;
-            this.totalArea = usCensus.totalArea;
+            this.areaInSqkm = usCensus.areaInSqkm;
             this.waterArea = usCensus.waterArea;
             this.landArea = usCensus.landArea;
-            this.populationDensity = usCensus.populationDensity;
+            this.densityPerSqKm = usCensus.densityPerSqKm;
             this.housingDensity = usCensus.housingDensity;
         }
 

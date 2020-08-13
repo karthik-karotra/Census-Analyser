@@ -18,7 +18,7 @@ namespace CensusAnalyser.POCO
         public long housingUnits;
 
         [Name("Total area")]
-        public double totalArea;
+        public double areaInSqkm;
 
         [Name("Water area")]
         public double waterArea;
@@ -27,21 +27,21 @@ namespace CensusAnalyser.POCO
         public double landArea;
 
         [Name("Population Density")]
-        public double populationDensity;
+        public double densityPerSqKm;
 
         [Name("Housing Density")]
         public double housingDensity;
 
-        public USCensus(string stateCode, string state, string population, string housingUnits, string totalArea, string waterArea, string landArea, string populationDensity, string housingDensity)
+        public USCensus(string stateCode, string state, string population, string housingUnits, string areaInSqkm, string waterArea, string landArea, string densityPerSqKm, string housingDensity)
         {
             this.stateCode = stateCode;
             this.state = state;
             this.population = Convert.ToUInt32(population);
             this.housingUnits = Convert.ToUInt32(housingUnits);
-            this.totalArea = Convert.ToDouble(totalArea);
+            this.areaInSqkm = Convert.ToDouble(areaInSqkm);
             this.waterArea = Convert.ToDouble(waterArea);
             this.landArea = Convert.ToDouble(landArea);
-            this.populationDensity = Convert.ToDouble(populationDensity);
+            this.densityPerSqKm = Convert.ToDouble(densityPerSqKm);
             this.housingDensity = Convert.ToDouble(housingDensity);
         }
     }
