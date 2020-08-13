@@ -9,6 +9,7 @@ namespace CensusAnalyser
     {
         string[] censusData;
         Dictionary<string, dynamic> CensusDataMap;
+
         public Dictionary<string, dynamic> LoadUSCensusData(string csvFilePath, string dataHeaders)
         {
             censusData = GetCensusCSVData(csvFilePath, dataHeaders);

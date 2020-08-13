@@ -4,32 +4,32 @@ using CensusAnalyser.SortAttributes;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Collections.Generic;
-using static CensusAnalyser.CensorAnalyser;
+using static CensusAnalyser.CensusAnalyser;
 
 namespace CensusAnalyserTest
 {
     public class Tests
     {
-        static readonly string indianCensusCSVFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCensusData.csv";
+        static readonly string indianCensusCSVFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\Resources\IndiaStateCensusData.csv";
         static readonly string invalidFilePath = @"D:\C-Sharp\IndiaStateCensusData.csv";
-        static readonly string invalidCSVTypeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyser\CensorAnalyser.cs";
-        static readonly string invalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectDeliminatorCensusFile.csv";
-        static readonly string invalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\IncorrectHeaderCensusFile.csv";
-        static readonly string csvStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\IndiaStateCode.csv";
-        static readonly string invalidDeliminatorStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorIndiaStateCode.csv";
+        static readonly string invalidCSVTypeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyser\Service\CensusAnalyser.cs";
+        static readonly string invalidDeliminatorFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\Resources\IncorrectDeliminatorCensusFile.csv";
+        static readonly string invalidHeaderFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\Resources\IncorrectHeaderCensusFile.csv";
+        static readonly string csvStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\Resources\IndiaStateCode.csv";
+        static readonly string invalidDeliminatorStateCodeFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\Resources\InvalidDeliminatorIndiaStateCode.csv";
         static readonly string stateCensusFileHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
         static readonly string stateCodeFileHeaders = "SrNo,State Name,TIN,StateCode";
-        static readonly string usCSVFilePath = @"D:\C-Sharp\CensusAnalyser\USCensusData .csv";
-        static readonly string invalidDeliminatorUSCensusFilePath = @"D:\C-Sharp\CensusAnalyser\InvalidDeliminatorUSCensusData.csv";
+        static readonly string usCSVFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\Resources\USCensusData .csv";
+        static readonly string invalidDeliminatorUSCensusFilePath = @"D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\Resources\InvalidDeliminatorUSCensusData.csv";
         static readonly string usCensusFileHeaders = "State Id,State,Population,Housing units,Total area,Water area,Land area,Population Density,Housing Density";
 
         Dictionary<string, dynamic> totalRecords;
-        CensorAnalyser censusAnalyser;
-
+        CensusAnalyser.CensusAnalyser censusAnalyser;
+        
         [SetUp]
         public void Setup()
         {
-            censusAnalyser = new CensorAnalyser();
+            censusAnalyser = new CensusAnalyser.CensusAnalyser();
             totalRecords = new Dictionary<string, dynamic>();
         }
 

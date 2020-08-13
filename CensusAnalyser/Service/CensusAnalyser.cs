@@ -7,7 +7,7 @@ using static CensusAnalyser.SortAttributes.SortType;
 
 namespace CensusAnalyser
 {
-    public class CensorAnalyser
+    public class CensusAnalyser
     {
         public enum Country
         {
