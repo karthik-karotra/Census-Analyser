@@ -25,7 +25,7 @@ namespace CensusAnalyserTest
 
         Dictionary<string, dynamic> totalRecords;
         CensusAnalyser.CensusAnalyser censusAnalyser;
-        
+
         [SetUp]
         public void Setup()
         {
@@ -274,12 +274,12 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndiaAndUSCensusCSVFiles_WhenFilesPresent_ShouldReturnMostPopulousStateWithDensity()
         {
-            string indianCSVFileSortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DESCENDING, Country.INDIA).ToString();
+            string indianCSVFileSortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(indianCensusCSVFilePath, stateCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING, Country.INDIA).ToString();
             IndianCensus[] sortedIndianCensusData = JsonConvert.DeserializeObject<IndianCensus[]>(indianCSVFileSortedData);
-            string usCSVFileSortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(usCSVFilePath, usCensusFileHeaders, SortType.SortBy.POPULATION_DESCENDING, Country.US).ToString();
+            string usCSVFileSortedData = censusAnalyser.GetSortedCSVDataInJsonFormat(usCSVFilePath, usCensusFileHeaders, SortType.SortBy.POPULATION_DENSITY_DESCENDING, Country.US).ToString();
             USCensus[] sortedUSCensusData = JsonConvert.DeserializeObject<USCensus[]>(usCSVFileSortedData);
-            string mostDenselyPopulatedState=censusAnalyser.GetMostPopulousStateWithDensity(sortedIndianCensusData[0],sortedUSCensusData[0]);
-            Assert.AreEqual("California", mostDenselyPopulatedState);
+            string mostDenselyPopulatedState = censusAnalyser.GetMostPopulousStateWithDensity(sortedIndianCensusData[0], sortedUSCensusData[0]);
+            Assert.AreEqual("District of Columbia", mostDenselyPopulatedState);
         }
     }
 }

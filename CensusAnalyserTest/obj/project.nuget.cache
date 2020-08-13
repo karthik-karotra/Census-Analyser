@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AsewL/2NKSG4DKEFgVEKl43kVaqKY4zAIumS2GxZgFiW/pWaUAgM2kNl423gp2pv4thezv2J56UCMjZbvAfiNQ==",
+  "dgSpecHash": "08pYhM37GQQO2g1o9U7IHRrIw1Ip7t+D2japbLY6uAZWaUvl+psofiQ7Uy7WeZTZTSdpE7ly8HZIKW18Qz8D3g==",
   "success": true,
   "projectFilePath": "D:\\C-Sharp\\CensusAnalyser\\CensusAnalyserTest\\CensusAnalyserTest.csproj",
   "expectedPackageFiles": [
@@ -21,6 +21,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\nunit3testadapter\\3.15.1\\nunit3testadapter.3.15.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
