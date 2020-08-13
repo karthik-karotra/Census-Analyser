@@ -1,4 +1,5 @@
-﻿using CensusAnalyser.SortAttributes;
+﻿using CensusAnalyser.POCO;
+using CensusAnalyser.SortAttributes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,12 @@ namespace CensusAnalyser
             var censusData = LoadCSVFileData(csvFilePath, fileHeaders, country);
             List<dynamic> sortedList = SortType.SortIndianCensusData(censusData.Values.ToList(), sortType);
             return JsonConvert.SerializeObject(sortedList);
+        }
+
+        public string GetMostPopulousStateWithDensity(IndianCensus indianCensus, USCensus usCensus)
+        {
+            string denselyPopulatedState = (indianCensus.populationDensity > usCensus.densityPerSqKm) ? indianCensus.state : usCensus.state;
+            return denselyPopulatedState;
         }
     }
 }
