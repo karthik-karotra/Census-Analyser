@@ -92,8 +92,8 @@ D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\bin\Debug\netcoreapp3.1\CensusAnaly
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csprojAssemblyReference.cache
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.AssemblyInfoInputs.cache
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.AssemblyInfo.cs
+D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csproj.CoreCompileInputs.cache
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csproj.CopyComplete
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.dll
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.pdb
 D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.genruntimeconfig.cache
-D:\C-Sharp\CensusAnalyser\CensusAnalyserTest\obj\Debug\netcoreapp3.1\CensusAnalyserTest.csproj.CoreCompileInputs.cache

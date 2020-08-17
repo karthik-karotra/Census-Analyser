@@ -1,48 +1,54 @@
-﻿using CsvHelper.Configuration.Attributes;
-using System;
-
+﻿// <copyright file="USCensus.cs" company="BridgeLabz Solution">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 namespace CensusAnalyser.POCO
 {
+    using System;
+    using CsvHelper.Configuration.Attributes;
+
+    /// <summary>
+    /// US Census POCO Class.
+    /// </summary>
     public class USCensus
     {
         [Name("State Id")]
-        public string stateCode;
+        public string StateCode;
 
         [Name("State")]
-        public string state;
+        public string State;
 
         [Name("Population")]
-        public long population;
+        public long Population;
 
         [Name("Housing units")]
-        public long housingUnits;
+        public long HousingUnits;
 
         [Name("Total area")]
-        public double areaInSqkm;
+        public double AreaInSqkm;
 
         [Name("Water area")]
-        public double waterArea;
+        public double WaterArea;
 
         [Name("Land area")]
-        public double landArea;
+        public double LandArea;
 
         [Name("Population Density")]
-        public double densityPerSqKm;
+        public double DensityPerSqKm;
 
         [Name("Housing Density")]
-        public double housingDensity;
+        public double HousingDensity;
 
         public USCensus(string stateCode, string state, string population, string housingUnits, string areaInSqkm, string waterArea, string landArea, string densityPerSqKm, string housingDensity)
         {
-            this.stateCode = stateCode;
-            this.state = state;
-            this.population = Convert.ToUInt32(population);
-            this.housingUnits = Convert.ToUInt32(housingUnits);
-            this.areaInSqkm = Convert.ToDouble(areaInSqkm);
-            this.waterArea = Convert.ToDouble(waterArea);
-            this.landArea = Convert.ToDouble(landArea);
-            this.densityPerSqKm = Convert.ToDouble(densityPerSqKm);
-            this.housingDensity = Convert.ToDouble(housingDensity);
+            this.StateCode = stateCode;
+            this.State = state;
+            this.Population = Convert.ToUInt32(population);
+            this.HousingUnits = Convert.ToUInt32(housingUnits);
+            this.AreaInSqkm = Convert.ToDouble(areaInSqkm);
+            this.WaterArea = Convert.ToDouble(waterArea);
+            this.LandArea = Convert.ToDouble(landArea);
+            this.DensityPerSqKm = Convert.ToDouble(densityPerSqKm);
+            this.HousingDensity = Convert.ToDouble(housingDensity);
         }
     }
 }

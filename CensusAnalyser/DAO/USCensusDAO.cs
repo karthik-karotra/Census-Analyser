@@ -1,7 +1,14 @@
-﻿using CensusAnalyser.POCO;
+﻿// <copyright file="USCensusDAO.cs" company="BridgeLabz Solution">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace CensusAnalyser.DAO
 {
+    using global::CensusAnalyser.POCO;
+
+    /// <summary>
+    /// US Census DAO.
+    /// </summary>
     public class USCensusDAO
     {
         public string stateCode;
@@ -14,19 +21,28 @@ namespace CensusAnalyser.DAO
         public double densityPerSqKm;
         public double housingDensity;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="USCensusDAO"/> class.
+        /// </summary>
+        /// <param name="usCensus">US Census POCO class object.</param>
         public USCensusDAO(USCensus usCensus)
         {
-            this.stateCode = usCensus.stateCode;
-            this.state = usCensus.state;
-            this.population = usCensus.population;
-            this.housingUnits = usCensus.housingUnits;
-            this.areaInSqkm = usCensus.areaInSqkm;
-            this.waterArea = usCensus.waterArea;
-            this.landArea = usCensus.landArea;
-            this.densityPerSqKm = usCensus.densityPerSqKm;
-            this.housingDensity = usCensus.housingDensity;
+            this.stateCode = usCensus.StateCode;
+            this.state = usCensus.State;
+            this.population = usCensus.Population;
+            this.housingUnits = usCensus.HousingUnits;
+            this.areaInSqkm = usCensus.AreaInSqkm;
+            this.waterArea = usCensus.WaterArea;
+            this.landArea = usCensus.LandArea;
+            this.densityPerSqKm = usCensus.DensityPerSqKm;
+            this.housingDensity = usCensus.HousingDensity;
         }
 
-        public USCensusDAO() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="USCensusDAO"/> class.
+        /// </summary>
+        public USCensusDAO()
+        {
+        }
     }
 }
